@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>my blog</title>
+</head>
+<body>
+{% extends 'base.html' %}
+{% block blog_entries %}
+    {% for object in object_list %}
+        <div class="post">
+            <h2><a href="{% url "entry_detail" slug=object.slug %}">{{ object.title }}</a></h2>
+            <p class="meta">
+                {{ object.created }}
+                Tagged under{{ obejct.tags.all|join:", " }}
+            </p>
+            {{ markdownx_editor }}
+            {{ object.body }}
+            <a href="{% url "entry_detail" slug=object.slug%}">Comments:{{ entry.approved_comments.count }}</a>
+        </div>
+    {% endfor %}
+{% endblock %}
+</body>
+</html>

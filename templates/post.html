@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>my blog</title>
+    {% load i18n comments fluent_comments_tags %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/ajaxcomments.css'%}" />
+    <script type="text/javascript" src="{% static 'blog/jquery.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'blog/ajaxcomments.js' %}"></script>
+</head>
+<body>
+{% block blog_entries %}
+    <div class="post">
+        <h2><a href="{%  url "entry_detail" slug=object.slug %}">{{ object.title }}</a></h2>
+        <p class="meta">
+            {{ object.created }}
+            {{ object.tags.all|join:", " }}
+        </p>
+        {{ object.body }}
+     </div>
+{% endblock %}
+{% load comments %}
+
+
+
+{% render_comment_list for object %}
+{% render_comment_form for object %}
+</body>
+</html>
